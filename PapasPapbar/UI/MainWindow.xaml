@@ -4,14 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="MainWindow" Height="350" Width="525">
-    <Grid Margin="-2,0,2,0">
-        <StackPanel Orientation="Horizontal" Height="20" VerticalAlignment="Top">
-            <Button Content="Reservation" Click="Reservation_Click" Height="20" VerticalAlignment="Top"/>
-            <Button Content="Medlemskab" Click="Membership_Click"/>
-            <Button Content="Spil bibliotek" Click="BoardgameameLibrary_Click"/>
-            <Button Content="Spil statestik" Click="GameStats_Click"/>
-            <Button Content="Board" Click="Table_Click"/>
-        </StackPanel>
-        <Frame x:Name="Main" Margin="0,20,0,0"/>
+    <Grid>
+        <Button Content="Reservation" Click="Reservation_Click" Margin="139,63,150,216"/>
+        <Button Content="Medlemskab" Click="Membership_Click" Margin="139,108,150,171"/>
+        <Button Content="Spil bibliotek" Click="BoardgameameLibrary_Click" Margin="253,198,150,81"/>
+        <Button Content="Spil statestik" Click="GameStats_Click" Margin="139,198,269,81"/>
+        <Button Content="Board" Click="Table_Click" Margin="139,153,150,126"/>
     </Grid>
 </Window>

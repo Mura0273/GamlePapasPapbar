@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Membership" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Tilbage" Margin="10,10,722,389" Width="60" Height="20" Click="Membership_Tilbage_Click"/>
     </Grid>
 </Window>
