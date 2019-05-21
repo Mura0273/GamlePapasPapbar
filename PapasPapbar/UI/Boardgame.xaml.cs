@@ -30,7 +30,8 @@ namespace PapasPapbar.UI
         private SqlCommand cmd;
         private SqlDataReader reader;
 
-
+        Controller control = new Controller();
+        BoardgameRepos BGR = new BoardgameRepos();
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -39,7 +40,7 @@ namespace PapasPapbar.UI
 
             dt.Load(reader);
             txtBrætspil.Focus();
-            BoardgameRepos.GetBoardgame();
+            control.ReadBoardGameData();
             DataGrid1.Columns[0].Visibility = Visibility.Collapsed;
             DataGrid1.ItemsSource = dt.DefaultView;
 
@@ -51,7 +52,16 @@ namespace PapasPapbar.UI
         //Nulstil Boardgame
         public void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            BoardgameRepos.ResetBoardgame();
+            txtBrætspil.Text = "";
+            txtAntal.Text = "";
+            txtAldersgruppe.Text = "";
+            txtSpilletid.Text = "";
+            txtDistrubutør.Text = "";
+            txtGenre.Text = "";
+            txtBrætspil.Focus();
+            btnUpdate.IsEnabled = false;
+            btnDelete.IsEnabled = false;
+            btnInsert.IsEnabled = true;
         }
 
 
@@ -61,10 +71,16 @@ namespace PapasPapbar.UI
         {
             try
             {
-                BoardgameRepos.InsertBoardgame();
+                control.AddBoardGame();
+                control.BoardgameName = txtBrætspil.Text;
+                BGR.PlayerCount = txtAntal.Text;
+                BGR.Audience = txtAldersgruppe.Text;
+                BGR.GameTime = txtSpilletid.Text;
+                BGR.Distributor = txtDistrubutør.Text;
+                BGR.GameTag = txtGenre.Text;
+                BGR.BoardgameId = txtId.Text;
+                control.UpdateBoardGame();
                 MessageBox.Show("Record Save Successfully", "Saved", MessageBoxButton.OK);
-                BoardgameRepos.GetBoardgame();
-                BoardgameRepos.ResetBoardgame();
             }
             catch (System.Exception)
             {
@@ -75,31 +91,69 @@ namespace PapasPapbar.UI
         //Slettefunktion til Boardgame
         public void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            BoardgameRepos.DeleteBoardgame();
+            control.DeleteBoardGame();
             MessageBox.Show("Record Deleted Successfully", "Deleted", MessageBoxButton.OK);
-            BoardgameRepos.ResetBoardgame();
         }
 
         //Updatefunktion til Boardgame
         public void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            BoardgameRepos.UpdateBoardgame();
+            control.UpdateBoardGame();
             MessageBox.Show("Record Update Successfully", "Updated", MessageBoxButton.OK);
-            BoardgameRepos.ResetBoardgame();
         }
 
         //Søgefunktion til Boardgame
         public void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            BoardgameRepos.SearchBoardgame();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
             DataGrid1.ItemsSource = dt.DefaultView;
             DataGrid1.Columns[0].Visibility = Visibility.Collapsed;
         }
 
         public void DataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BoardgameRepos.SelectionChangedBoardgame();
+            DataGrid dg = (DataGrid)sender;
+            DataRowView rowSelected = dg.SelectedItem as DataRowView;
+            if (rowSelected != null)
+            {
+                txtId.Text = rowSelected[0].ToString();
+                txtBrætspil.Text = rowSelected[1].ToString();
+                txtAntal.Text = rowSelected[2].ToString();
+                txtAldersgruppe.Text = rowSelected[3].ToString();
+                txtSpilletid.Text = rowSelected[4].ToString();
+                txtDistrubutør.Text = rowSelected[5].ToString();
+                txtGenre.Text = rowSelected[6].ToString();
+            }
+            btnUpdate.IsEnabled = true;
+            btnDelete.IsEnabled = true;
+            btnInsert.IsEnabled = false;
         }
-
+        //public void Create()
+        //{
+        //    BGR.BoardgameName = txtBrætspil.Text;
+        //    BGR.PlayerCount = txtAntal.Text;
+        //    BGR.Audience = txtAldersgruppe.Text;
+        //    BGR.GameTime = txtSpilletid.Text;
+        //    BGR.Distributor = txtDistrubutør.Text;
+        //    BGR.GameTag = txtGenre.Text;
+        //    control.AddBoardGame();
+        //}
+        public void Update()
+        {
+            BoardgameName = txtBrætspil.Text;
+            BGR.PlayerCount = txtAntal.Text;
+            BGR.Audience = txtAldersgruppe.Text;
+            BGR.GameTime = txtSpilletid.Text;
+            BGR.Distributor = txtDistrubutør.Text;
+            BGR.GameTag = txtGenre.Text;
+            BGR.BoardgameId = txtId.Text;
+            control.UpdateBoardGame();
+        }
+        //public void Delete()
+        //{
+        //    BGR.BoardgameId = txtId.Text;
+        //    BGR.DeleteBoardgame();
+        //}
     }
 }
