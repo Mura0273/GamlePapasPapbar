@@ -1,4 +1,5 @@
 ﻿using PapasPapbar.Application;
+using PapasPapbar.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,78 +29,37 @@ namespace PapasPapbar
             InitializeComponent();
         }
 
-        private SqlCommand cmd;
-        private SqlDataReader reader;
-
-       
-
-         public void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dt = new DataTable();
-            reader = cmd.ExecuteReader();
-          
-            dt.Load(reader);
-            txtBrætspil.Focus();
-            BoardgameRepos.GetBoardgame();
-            DataGrid1.Columns[0].Visibility = Visibility.Collapsed;
-            DataGrid1.ItemsSource = dt.DefaultView;
-           
+            UI.Reservation Switch = new UI.Reservation();
+            Switch.Show();
+            Close();
         }
 
-        //Get Data for datagrid
-       
-
-        //Nulstil Boardgame
-        public void btnReset_Click(object sender, RoutedEventArgs e)
+        private void Membership_Click(object sender, RoutedEventArgs e)
         {
-            BoardgameRepos.ResetBoardgame();
+            UI.Membership Switch = new UI.Membership();
+            Switch.Show();
+            Close();
         }
 
-
-
-        //Indsætfunktion til Boardgame
-        public void btnInsert_Click(object sender, RoutedEventArgs e)
+        private void BoardgameameLibrary_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                BoardgameRepos.InsertBoardgame();
-                MessageBox.Show("Record Save Successfully", "Saved", MessageBoxButton.OK);
-                BoardgameRepos.GetBoardgame();
-                BoardgameRepos.ResetBoardgame();
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            UI.Boardgame Switch = new UI.Boardgame();
+            Switch.Show();
+            Close();
         }
-
-        //Slettefunktion til Boardgame
-        public void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void GameStats_Click(object sender, RoutedEventArgs e)
         {
-            BoardgameRepos.DeleteBoardgame();
-            MessageBox.Show("Record Deleted Successfully", "Deleted", MessageBoxButton.OK);
-            BoardgameRepos.ResetBoardgame();
+            UI.GameStats Switch = new UI.GameStats();
+            Switch.Show();
+            Close();
         }
-
-        //Updatefunktion til Boardgame
-        public void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void Table_Click(object sender, RoutedEventArgs e)
         {
-            BoardgameRepos.UpdateBoardgame();
-            MessageBox.Show("Record Update Successfully", "Updated", MessageBoxButton.OK);
-            BoardgameRepos.ResetBoardgame();
-        }
-
-        //Søgefunktion til Boardgame
-        public void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            BoardgameRepos.SearchBoardgame();
-            DataGrid1.ItemsSource = dt.DefaultView;
-            DataGrid1.Columns[0].Visibility = Visibility.Collapsed;
-        }
-
-        public void DataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            BoardgameRepos.SelectionChangedBoardgame();
+            UI.Table Switch = new UI.Table();
+            Switch.Show();
+            Close();
         }
     }
 }
