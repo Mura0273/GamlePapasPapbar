@@ -23,5 +23,12 @@ namespace PapasPapbar.UI
         {
             InitializeComponent();
         }
+
+        private void Reservation_Tilbage_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow Switch = new MainWindow();
+            Switch.Show();
+            Close();
+        }
     }
 }

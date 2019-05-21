@@ -30,8 +30,17 @@ namespace PapasPapbar.UI
         private SqlCommand cmd;
         private SqlDataReader reader;
 
+
         Controller control = new Controller();
         BoardgameRepos BGR = new BoardgameRepos();
+
+        private void Boardgame_Tilbage_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow Switch = new MainWindow();
+            Switch.Show();
+            Close();
+        }
+
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
