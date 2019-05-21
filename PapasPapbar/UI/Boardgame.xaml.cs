@@ -30,7 +30,12 @@ namespace PapasPapbar.UI
         private SqlCommand cmd;
         private SqlDataReader reader;
 
-
+        private void Boardgame_Tilbage_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow Switch = new MainWindow();
+            Switch.Show();
+            Close();
+        }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -100,6 +105,5 @@ namespace PapasPapbar.UI
         {
             BoardgameRepos.SelectionChangedBoardgame();
         }
-
     }
 }
