@@ -9,19 +9,19 @@ namespace PapasPapbar.Application
     interface IMembership
     {
 
-        public void Attach(IMembership m)
-        {
-            throw new NotImplementedException();
-        }
+        //public void Attach(IMembership m)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void Detach(IMembership m)
-        {
-            throw new NotImplementedException();
-        }
+        //public void Detach(IMembership m)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void Notify()
-        {
-            throw new NotImplementedException();
-        }
+        //public void Notify()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

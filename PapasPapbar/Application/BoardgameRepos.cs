@@ -15,174 +15,105 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PapasPapbar.UI;
 
 
 namespace PapasPapbar.Application
 {
 
-    public static class BoardgameRepos
+    public class BoardgameRepos
     {
-        static string boardgameId = txtboardgameId.Text;
-        static string boardgameName;
-        static string numberOfPlayers;
-        static string audience;
-        static string expectedGameTime;
-        static string distributor;
-        static string gameTag;
+        public string BoardgameName { get; set; }
+        public string PlayerCount { get; set; }
+        public string Audience { get; set; }
+        public string GameTime { get; set; }
+        public string Distributor { get; set; }
+        public string GameTag { get; set; }
+        public string BoardgameId { get; set; }
 
-        public static SqlCommand cmd;
-        public static SqlDataReader reader;
+        public DataTable dataTable = new DataTable();
+        private DataSet dataSet = new DataSet();
+        public SqlDataReader reader;
 
-        public static void ResetBoardgame()
+        public void CreateBoardgame()
         {
-            txtboardgameId.Text = "";
-            txtBrætspil.Text = "";
-            txtAntal.Text = "";
-            txtAldersgruppe.Text = "";
-            txtSpilletid.Text = "";
-            txtDistrubutør.Text = "";
-            txtGenre.Text = "";
-            txtBrætspil.Focus();
-            btnUpdate.IsEnabled = false;
-            btnDelete.IsEnabled = false;
-            btnInsert.IsEnabled = true;
-        }
-
-        public static void GetBoardgame()
-        {
-            using (SqlConnection con = new SqlConnection(DataBaseController.connectionString))
-
-                try
+            using (SqlConnection con = new SqlConnection(Connection.connectionString))
+            {
+            con.Open();
+                using (SqlCommand command1 = new SqlCommand())
                 {
-                    con.Open();
-                    SqlCommand cmd2 = new SqlCommand("ViewGameLibrary", con);                 
-                                  
+                    command1.CommandText = "INSERT INTO [C_DB13_2018].[dbo].[Game_Library] (Boardgame_Name, Player_Count, Audience, Game_Time, Distributor, GameTag) VALUES " +
+                        "(@Boardgame_name, @Player_Count, @Audience, @Game_Time, @Distributor, @GameTag);";
+                    command1.CommandType = CommandType.Text;
+                    command1.Connection = con;
+
+                    command1.Parameters.Add(new SqlParameter("Boardgame_name", BoardgameName));
+                    command1.Parameters.Add(new SqlParameter("Player_Count", PlayerCount));
+                    command1.Parameters.Add(new SqlParameter("Audience", Audience));
+                    command1.Parameters.Add(new SqlParameter("Game_Time", GameTime));
+                    command1.Parameters.Add(new SqlParameter("Distributor", Distributor));
+                    command1.Parameters.Add(new SqlParameter("GameTag", GameTag));
+
+                    command1.ExecuteNonQuery();
                     con.Close();
                 }
-                catch (System.Exception)
-                {
-                    throw;
-                }
+            }
         }
-      
-        public static void InsertBoardgame()
+        public void UpdateBoardgame()
         {
-            using (SqlConnection con = new SqlConnection(DataBaseController.connectionString))
-
-                try
+            using (SqlConnection con = new SqlConnection(Connection.connectionString))
+            {
+                con.Open();
+                using (SqlCommand command2 = new SqlCommand())
                 {
-                    con.Open();
-                    cmd = new SqlCommand("Insert into Game_Library (Boardgame_Name, Player_Count, Audience, Game_Time, Distributor, GameTag) Values (@Boardgame_Name, @Player_Count, @Audience, @Game_Time, @Distributor, @GameTag)", con);
-                    cmd.Parameters.AddWithValue("Boardgame_Name", boardgameId.Trim());
-                    cmd.Parameters.AddWithValue("Player_Count", txtAntal.Text.Trim());
-                    cmd.Parameters.AddWithValue("Audience", txtAldersgruppe.Text.Trim());
-                    cmd.Parameters.AddWithValue("Game_Time", txtSpilletid.Text.Trim());
-                    cmd.Parameters.AddWithValue("Distributor", txtDistrubutør.Text.Trim());
-                    cmd.Parameters.AddWithValue("GameTag", txtGenre.Text.Trim());
-                    cmd.ExecuteNonQuery();
+                    command2.CommandText = "UPDATE [C_DB13_2018].[dbo].[Game_Library] SET Boardgame_Name = @Boardgame_Name, Player_Count = @Player_Count, Audience = @Audience, Game_Time = @Game_Time, Distributor = @Distributor, GameTag = @GameTag WHERE Boardgame_Id = @Boardgame_Id";
+
+                    command2.CommandType = CommandType.Text;
+                    command2.Connection = con;
+
+                    command2.Parameters.Add(new SqlParameter("Boardgame_Name", BoardgameName));
+                    command2.Parameters.Add(new SqlParameter("Player_Count", PlayerCount));
+                    command2.Parameters.Add(new SqlParameter("Audience", Audience));
+                    command2.Parameters.Add(new SqlParameter("Game_Time", GameTime));
+                    command2.Parameters.Add(new SqlParameter("Distributor", Distributor));
+                    command2.Parameters.Add(new SqlParameter("GameTag", GameTag));
+                    command2.Parameters.Add(new SqlParameter("BoardGame_Id", BoardgameId));
+
+                    command2.ExecuteNonQuery();
                     con.Close();
                 }
-                catch (System.Exception)
-                {
-                    throw;
-                }
+            }
         }
-
-        public static void DeleteBoardgame()
+        public void DeleteBoardgame()
         {
-            using (SqlConnection con = new SqlConnection(DataBaseController.connectionString))      
-
-                try
+            using (SqlConnection con = new SqlConnection(Connection.connectionString))
+            {
+                con.Open();
+                using (SqlCommand command3 = new SqlCommand())
                 {
-                    con.Open();
-                    cmd = new SqlCommand("Delete From Game_Library Where Boardgame_Id = @Boardgame_Id", con);
-                    cmd.Parameters.AddWithValue("Boardgame_Id", txtId.Text.Trim());
-                    cmd.ExecuteNonQuery();
-                    con.Close();                   
-                   // GetBoardgame();
-                }
-                catch (System.Exception)
-                {
-                    throw;
-                }
-        }
+                    command3.CommandText = "DELETE FROM [C_DB13_2018].[dbo].[Game_Library] WHERE Boardgame_Id = @Boardgame_Id";
 
-        public static void SearchBoardgame()
-        {
+                    command3.CommandType = CommandType.Text;
+                    command3.Connection = con;
 
-            using (SqlConnection con = new SqlConnection(DataBaseController.connectionString))
+                    command3.Parameters.Add(new SqlParameter("BoardGame_Id", BoardgameId));
 
-                try
-                {
-                    con.Open();
-                    cmd = new SqlCommand("Select * From Game_Library Where Boardgame_Name Like '%" + txtSearch.Text.Trim() + "%' OR Player_Count Like '%" + txtSearch.Text.Trim() + "%' OR Game_Time Like '%" + txtSearch.Text.Trim() + "%' OR Distributor Like '%" + txtSearch.Text.Trim() + "%' OR GameTag Like '%" + txtSearch.Text.Trim() + "%' Order By Boardgame_Id Desc", con);
-                    reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
+                    command3.ExecuteNonQuery();
                     con.Close();
-
                 }
-                catch (System.Exception)
-                {
-                    throw;
-                }
+            }
         }
-
-        public static void UpdateBoardgame()
+        public void ReadData()
         {
+            using (SqlConnection con = new SqlConnection(Connection.connectionString))
+            {
+                dataTable.Clear();
+                string query1 = "SELECT Boardgame_Name, Player_Count, Audience, Game_Time, Distributor, GameTag, Boardgame_Id FROM ViewGameLibrary";
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query1, con);
+                sqlDataAdapter.Fill(dataSet);
+                dataTable = dataSet.Tables[0];
+            }
 
-            using (SqlConnection con = new SqlConnection(DataBaseController.connectionString))
-
-                try
-                {
-                    con.Open();
-                    cmd = new SqlCommand("UPDATE Game_Library SET Boardgame_Name = @Boardgame_Name, Player_Count = @Player_Count, Audience = @Audience, Game_Time = @Game_Time, Distributor = @Distributor, GameTag = @GameTag WHERE Boardgame_Id = @Boardgame_Id", con);
-                    cmd.Parameters.AddWithValue("Boardgame_Id", txtId.Text.Trim());
-                    cmd.Parameters.AddWithValue("Boardgame_Name", txtBrætspil.Text.Trim());
-                    cmd.Parameters.AddWithValue("Player_Count", txtAntal.Text.Trim());
-                    cmd.Parameters.AddWithValue("Audience", txtAldersgruppe.Text.Trim());
-                    cmd.Parameters.AddWithValue("Game_Time", txtSpilletid.Text.Trim());
-                    cmd.Parameters.AddWithValue("Distributor", txtDistrubutør.Text.Trim());
-                    cmd.Parameters.AddWithValue("GameTag", txtGenre.Text.Trim());
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    GetBoardgame();
-                }
-                catch (System.Exception)
-                {
-                    throw;
-                }
         }
-
-        public static void SelectionChangedBoardgame()
-        {
-
-            using (SqlConnection con = new SqlConnection(DataBaseController.connectionString))
-
-
-                try
-                {
-                    DataGrid dg = (DataGrid)sender;
-                    DataRowView rowSelected = dg.SelectedItem as DataRowView;
-                    if (rowSelected != null)
-                    {
-                        txtId.Text = rowSelected[0].ToString();
-                        txtBrætspil.Text = rowSelected[1].ToString();
-                        txtAntal.Text = rowSelected[2].ToString();
-                        txtAldersgruppe.Text = rowSelected[3].ToString();
-                        txtSpilletid.Text = rowSelected[4].ToString();
-                        txtDistrubutør.Text = rowSelected[5].ToString();
-                        txtGenre.Text = rowSelected[6].ToString();
-                    }
-                    btnUpdate.IsEnabled = true;
-                    btnDelete.IsEnabled = true;
-                    btnInsert.IsEnabled = false;
-                }
-                catch (System.Exception)
-                {
-                    throw;
-                }
-        }
-        
     }
 }

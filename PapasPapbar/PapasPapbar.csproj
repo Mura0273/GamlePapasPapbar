@@ -85,7 +85,7 @@
     </Page>
     <Compile Include="Application\BoardgameRepos.cs" />
     <Compile Include="Application\Controller.cs" />
-    <Compile Include="Application\DataBaseController.cs" />
+    <Compile Include="Application\Connection.cs" />
     <Compile Include="Application\EventRepos.cs" />
     <Compile Include="Application\GameStatsRepos.cs" />
     <Compile Include="Application\IMembership.cs" />

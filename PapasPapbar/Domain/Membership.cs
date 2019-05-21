@@ -63,7 +63,7 @@ namespace PapasPapbar.Domain
                 }
                 Exceldt.AcceptChanges();
                 //creating object of SqlBulkCopy      
-                SqlBulkCopy objbulk = new SqlBulkCopy(DataBaseController.connectionString);
+                SqlBulkCopy objbulk = new SqlBulkCopy(Connection.connectionString);
                 ////assigning Destination table name      
                 //objbulk.DestinationTableName = "Student";
                 ////Mapping Table column    
@@ -73,7 +73,7 @@ namespace PapasPapbar.Domain
                 //objbulk.ColumnMappings.Add("Mobile", "Mob");
 
                 //inserting Datatable Records to DataBase   
-                SqlConnection connection = new SqlConnection(DataBaseController.connectionString);
+                SqlConnection connection = new SqlConnection(Connection.connectionString);
                 connection.Open(); //Open DataBase conection  
 
                 objbulk.WriteToServer(Exceldt); //inserting Datatable Records to DataBase con.Close(); //Close DataBase conection  
