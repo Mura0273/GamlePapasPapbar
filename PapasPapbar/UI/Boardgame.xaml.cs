@@ -72,13 +72,12 @@ namespace PapasPapbar.UI
             try
             {
                 control.AddBoardGame();
-                control.BoardgameName = txtBrætspil.Text;
+                BGR.BoardgameName = txtBrætspil.Text;
                 BGR.PlayerCount = txtAntal.Text;
                 BGR.Audience = txtAldersgruppe.Text;
                 BGR.GameTime = txtSpilletid.Text;
                 BGR.Distributor = txtDistrubutør.Text;
                 BGR.GameTag = txtGenre.Text;
-                BGR.BoardgameId = txtId.Text;
                 control.UpdateBoardGame();
                 MessageBox.Show("Record Save Successfully", "Saved", MessageBoxButton.OK);
             }
@@ -91,6 +90,7 @@ namespace PapasPapbar.UI
         //Slettefunktion til Boardgame
         public void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            BGR.BoardgameId = txtId.Text;
             control.DeleteBoardGame();
             MessageBox.Show("Record Deleted Successfully", "Deleted", MessageBoxButton.OK);
         }
@@ -98,6 +98,13 @@ namespace PapasPapbar.UI
         //Updatefunktion til Boardgame
         public void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            BGR.BoardgameName = txtBrætspil.Text;
+            BGR.PlayerCount = txtAntal.Text;
+            BGR.Audience = txtAldersgruppe.Text;
+            BGR.GameTime = txtSpilletid.Text;
+            BGR.Distributor = txtDistrubutør.Text;
+            BGR.GameTag = txtGenre.Text;
+            BGR.BoardgameId = txtId.Text;
             control.UpdateBoardGame();
             MessageBox.Show("Record Update Successfully", "Updated", MessageBoxButton.OK);
         }
@@ -129,31 +136,5 @@ namespace PapasPapbar.UI
             btnDelete.IsEnabled = true;
             btnInsert.IsEnabled = false;
         }
-        //public void Create()
-        //{
-        //    BGR.BoardgameName = txtBrætspil.Text;
-        //    BGR.PlayerCount = txtAntal.Text;
-        //    BGR.Audience = txtAldersgruppe.Text;
-        //    BGR.GameTime = txtSpilletid.Text;
-        //    BGR.Distributor = txtDistrubutør.Text;
-        //    BGR.GameTag = txtGenre.Text;
-        //    control.AddBoardGame();
-        //}
-        public void Update()
-        {
-            BoardgameName = txtBrætspil.Text;
-            BGR.PlayerCount = txtAntal.Text;
-            BGR.Audience = txtAldersgruppe.Text;
-            BGR.GameTime = txtSpilletid.Text;
-            BGR.Distributor = txtDistrubutør.Text;
-            BGR.GameTag = txtGenre.Text;
-            BGR.BoardgameId = txtId.Text;
-            control.UpdateBoardGame();
-        }
-        //public void Delete()
-        //{
-        //    BGR.BoardgameId = txtId.Text;
-        //    BGR.DeleteBoardgame();
-        //}
     }
 }

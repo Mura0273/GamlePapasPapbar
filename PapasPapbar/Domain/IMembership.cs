@@ -8,8 +8,8 @@ namespace PapasPapbar.Domain
 {
     interface IMember
     {
-        void Attach(IMembership m);
-        void Detach(IMembership m);
-        void Notify();
+        //void Attach(IMembership m);
+        //void Detach(IMembership m);
+        //void Notify();
     }
 }

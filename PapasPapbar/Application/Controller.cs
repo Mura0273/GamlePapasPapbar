@@ -8,12 +8,13 @@ using System.Data;
 
 namespace PapasPapbar.Application
 {
-    public static class Controller
+    public class Controller
     {
-        public static void AddBoardGame()
+        public void AddBoardGame()
         {
             BoardgameRepos BG = new BoardgameRepos();
             BG.CreateBoardgame();
+
         }
         public void UpdateBoardGame()
         {
