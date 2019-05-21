@@ -51,6 +51,34 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\TableRepos.cs" />
+    <Compile Include="Domain\Boardgame.cs" />
+    <Compile Include="Domain\EventReservation.cs" />
+    <Compile Include="Domain\GameStats.cs" />
+    <Compile Include="Domain\IMembership.cs" />
+    <Compile Include="Domain\Membership.cs" />
+    <Compile Include="Domain\Reservation.cs" />
+    <Compile Include="Domain\Tables.cs" />
+    <Compile Include="UI\GameStats.xaml.cs">
+      <DependentUpon>GameStats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Membership.xaml.cs">
+      <DependentUpon>Membership.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Reservation.xaml.cs">
+      <DependentUpon>Reservation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Table.xaml.cs">
+      <DependentUpon>Table.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UI\Boardgame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\GameStats.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,10 +91,25 @@
     <Compile Include="Application\IMembership.cs" />
     <Compile Include="Application\MembershipRepos.cs" />
     <Compile Include="Application\ReservationRepos.cs" />
+    <Compile Include="UI\Boardgame.xaml.cs">
+      <DependentUpon>Boardgame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Membership.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Reservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Table.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -92,10 +135,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="UI\App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
